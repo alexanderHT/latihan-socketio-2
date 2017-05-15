@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Socket Io</title>
+  </head>
+  <body>
+    <h1>Express and socket io</h1>
+
+    <input type="text" id="input-message">
+    <button type="button" name="button" onclick="send()">kilk me</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+      // declare socket io
+      var socket = io('http://localhost:3000');
+
+      // send message to server using ajax
+      function send(){
+        $.ajax({
+          url: "http://localhost:3000/users",
+          data: {
+            message: $('#input-message').val()
+          },
+          type: "POST",
+          success: function( result ) {
+            $('#input-message').val('')
+          }
+        });
+      }
+
+      // get message from server
+      socket.on('hallo', function (data) {
+        console.log(data);
+      });
+
+    </script>
+  </body>
+</html>
